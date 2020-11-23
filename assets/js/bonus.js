@@ -1,22 +1,37 @@
 // Il computer deve generare 16 numeri casuali tra 1 e 100.
 listaNumeriComputer = [];
 
-for (var i = 0; i < 16; i++){
-    var numeroRandom = Math.ceil(Math.random() * 100);
-    // I numeri non possono essere duplicati
-    var stampo = true;
-    for(var j = 0; j < i; j++){
-        if(numeroRandom == listaNumeriComputer[j]){
-            stampo = false;
+function genera(numero){
+    for (var i = 0; i < 16; i++){
+        var numeroRandom = Math.ceil(Math.random() * numero);
+        // I numeri non possono essere duplicati
+        var stampo = true;
+        for(var j=0; j < i; j++){
+            if(numeroRandom == listaNumeriComputer[j]){
+                stampo = false;
+            }
+        }
+        if (stampo){
+            listaNumeriComputer[i] = numeroRandom 
+        }else{
+            i--;
         }
     }
-    if (stampo){
-        listaNumeriComputer[i] = numeroRandom 
-    }else{
-        i--;
-    }
-}
     
+}
+// all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali:
+var difficoltà = prompt("Che livello di difficoltà vuoi? 0, 1, 2")
+// con difficoltà 2 => tra 1 e 50
+if (difficoltà == 2){
+    genera(50);
+    // con difficoltà 1 =>  tra 1 e 80
+}else if(difficoltà == 1){
+    genera(80);
+    // con difficoltà 0 => tra 1 e 100
+}else{
+    genera(100);
+}
+
 console.log(listaNumeriComputer);
 // In seguito deve chiedere all’utente (100 - 16) volte di inserire un numero alla volta, sempre compreso tra 1 e 100.
 listaNumeriUtente = [];
