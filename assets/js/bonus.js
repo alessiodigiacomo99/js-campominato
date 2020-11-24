@@ -20,45 +20,56 @@ function genera(numero){
     
 }
 // all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali:
-var difficoltà = prompt("Che livello di difficoltà vuoi? 0, 1, 2")
-// con difficoltà 2 => tra 1 e 50
-if (difficoltà == 2){
-    genera(50);
-    // con difficoltà 1 =>  tra 1 e 80
-}else if(difficoltà == 1){
-    genera(80);
-    // con difficoltà 0 => tra 1 e 100
-}else{
-    genera(100);
+var tentativi;
+var nMax;
+var difficoltà = Number(prompt("Che livello di difficoltà vuoi? 0, 1, 2"))
+switch (difficoltà) {
+    case 2:
+        // con difficoltà 2 => tra 1 e 50
+        nMax = 50;
+        break;
+    case 1:
+        // con difficoltà 1 =>  tra 1 e 80
+        nMax = 80;
+        break;
+    default:
+        // con difficoltà 0 => tra 1 e 100
+        nMax = 100;
+        break;
 }
-
+tentativi = nMax - 16;
+genera(nMax);
 console.log(listaNumeriComputer);
 // In seguito deve chiedere all’utente (100 - 16) volte di inserire un numero alla volta, sempre compreso tra 1 e 100.
 listaNumeriUtente = [];
-for (var q = 0; q < 4; q++){
-    var numeroUtente = Number(prompt("inserisci un numero tra 1 e 100"))
+for (var i = 0; i < tentativi; i++){
+    var numeroUtente = Number(prompt("inserisci un numero tra 1 e " + nMax))
+    if (numeroUtente > 100){
+        console.log("tra uno e " + nMax + "..");
+        i--;
+    }
     var insertNumber = true;
     // L’utente non può inserire più volte lo stesso numero.
-    for(var z = 0; z < q; z++){
-        if(numeroUtente == listaNumeriUtente[z]){
+    for(var j = 0; j < i; j++){
+        if(numeroUtente == listaNumeriUtente[j]){
             insertNumber = false;
         }  
     }
     if (insertNumber){
-        listaNumeriUtente[q] = numeroUtente;
+        listaNumeriUtente[i] = numeroUtente;
     }else{
-        q--;
+        i--;
         console.log("Questo numero è già stato inserito");
     }
     // Se il numero è presente nella lista dei numeri generati, la partita termina, altrimenti si continua chiedendo all’utente un altro numero.
-    if (q == 3){
-        console.log(4);
+    if (i == tentativi - 1){
+        console.log(tentativi);
     }
     for (var k = 0; k < 16; k++) {
         if (numeroUtente == listaNumeriComputer[k]){
             // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
-            console.log(q);
-            q = 4;
+            console.log(i);
+            i = tentativi;
         }
     }
 }
