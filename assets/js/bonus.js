@@ -22,7 +22,7 @@ function genera(numero){
 // all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali:
 var tentativi;
 var nMax;
-var difficoltà = Number(prompt("Che livello di difficoltà vuoi? 0, 1, 2"))
+var difficoltà = Number(prompt("Che livello di difficoltà vuoi? 0, 1, 2"));
 switch (difficoltà) {
     case 2:
         // con difficoltà 2 => tra 1 e 50
@@ -32,10 +32,13 @@ switch (difficoltà) {
         // con difficoltà 1 =>  tra 1 e 80
         nMax = 80;
         break;
-    default:
+    case 0:
         // con difficoltà 0 => tra 1 e 100
         nMax = 100;
         break;
+    default:
+        console.log("tra 0 e 2... ritenta per giocare");
+        nMax = 16;
 }
 tentativi = nMax - 16;
 genera(nMax);
@@ -45,7 +48,7 @@ listaNumeriUtente = [];
 for (var i = 0; i < tentativi; i++){
     var numeroUtente = Number(prompt("inserisci un numero tra 1 e " + nMax))
     if (numeroUtente > 100){
-        console.log("tra uno e " + nMax + "..");
+        console.log("tra uno e " + nMax + "...");
         i--;
     }
     var insertNumber = true;
