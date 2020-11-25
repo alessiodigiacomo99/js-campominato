@@ -1,23 +1,27 @@
 // Il computer deve generare 16 numeri casuali tra 1 e 100.
-listaNumeriComputer = [];
-
+var listaNumeriComputer = [];
+var nCasuali = 16;
 function genera(numero){
-    for (var i = 0; i < 16; i++){
+    for (var i = 0; i < nCasuali; i++){
         var numeroRandom = Math.ceil(Math.random() * numero);
         // I numeri non possono essere duplicati
-        var stampo = true;
-        for(var j=0; j < i; j++){
-            if(numeroRandom == listaNumeriComputer[j]){
-                stampo = false;
-            }
-        }
-        if (stampo){
-            listaNumeriComputer[i] = numeroRandom 
-        }else{
-            i--;
-        }
+        check(numeroRandom, listaNumeriComputer)
     }
     
+}
+
+function check(numero, array) {
+    var bool = true;
+    for(var j = 0; j < array.length; j++){
+        if(numero == array[j]){
+            bool = false;
+        }
+    }
+    if (bool){
+        array.push(numero);
+    }else{
+        nCasuali += 1;
+    }
 }
 // all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali:
 var tentativi;
@@ -38,32 +42,21 @@ switch (difficoltà) {
         break;
     default:
         console.log("tra 0 e 2... ritenta per giocare");
-        nMax = 16;
+        nMax = nCasuali;
 }
-tentativi = nMax - 16;
+tentativi = nMax - nCasuali;
 genera(nMax);
 console.log(listaNumeriComputer);
 // In seguito deve chiedere all’utente (100 - 16) volte di inserire un numero alla volta, sempre compreso tra 1 e 100.
-listaNumeriUtente = [];
+var listaNumeriUtente = [];
 for (var i = 0; i < tentativi; i++){
     var numeroUtente = Number(prompt("inserisci un numero tra 1 e " + nMax))
     if (numeroUtente > 100){
         console.log("tra uno e " + nMax + "...");
         i--;
     }
-    var insertNumber = true;
     // L’utente non può inserire più volte lo stesso numero.
-    for(var j = 0; j < i; j++){
-        if(numeroUtente == listaNumeriUtente[j]){
-            insertNumber = false;
-        }  
-    }
-    if (insertNumber){
-        listaNumeriUtente[i] = numeroUtente;
-    }else{
-        i--;
-        console.log("Questo numero è già stato inserito");
-    }
+    check(numeroUtente, listaNumeriUtente)
     // Se il numero è presente nella lista dei numeri generati, la partita termina, altrimenti si continua chiedendo all’utente un altro numero.
     if (i == tentativi - 1){
         console.log(tentativi);
